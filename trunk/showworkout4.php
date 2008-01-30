@@ -10,14 +10,26 @@
 
 <?php
 
+/*
+
+DESCRIPTION: Displays the interface for viewing and modifying workout data.
+
+NOTES: There are two parts to this file
+
+First we pull the data from the database and display if there is any.
+
+Second, when 'modify' is selected, we transfer the data into forms. (We 
+do this in one file, since we only have to make one database call).
+
+*/
+
 require_once "db.mysql.php";					 //Main MySQL access Class
-require_once "sql.statements.php";  	 //Holds all of the sql statements, so we don't clutter this file
 
 //Create new mysql access object
 $showWorkout = new database_mysql();
 $showWorkout->connect();
 
-$sql = showWorkout_sql();
+$sql = 'SELECT `UsrWghtUsrID` , `UsrWghtRoutID` , `UsrWghtExerID` , `UsrWghtSessID` , `UsrWghtDate` , `MuscleGrpName` , `UsrExerName` , `UsrSetsQTY` , `UsrWghtSet1` , `UsrWghtSet2` , `UsrWghtSet3` , `UsrWghtSet4` , `UsrWghtSet5` , `UsrWghtSet6` , `UsrWghtSet7` , `UsrWghtSet8` , `UsrWghtSet9` , `UsrWghtSet10` , `UsrExerMuscleGrp` FROM `usrweighttbl` , `usrsetstbl` , `usrexercisetbl` , `musclegrouptbl` WHERE `usrwghtsetsid` = `usrsetsid` AND `usrwghtexerid` = `usrexerid` AND `usrexermusclegrp` = `musclegrpid` AND `usrwghtdate` = "2008-01-11" ORDER BY MuscleGrpName LIMIT 0, 30 ';
 
 $showWorkout->query($sql);
 
@@ -39,7 +51,7 @@ while($row = $showWorkout->fetch_array()) {
 } 
 
 $sameGrp = $i - 1;
-$maxSets = max($UsrSetsQTY);
+$maxSets = max($UsrSetsQTY) + 1;
 
 echo "<table border=1>";
 for ($i=0; $i<$num; $i++) {
