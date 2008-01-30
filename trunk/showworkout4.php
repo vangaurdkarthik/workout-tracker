@@ -52,21 +52,31 @@ while($row = $showWorkout->fetch_array()) {
 
 $sameGrp = $i - 1;
 $maxSets = max($UsrSetsQTY) + 1;
+$current_url = $_SERVER['PHP_SELF'];
 
-echo "<table border=1>";
-for ($i=0; $i<$num; $i++) {
-		if ($i == 0 || $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp]) {
-			 echo "<tr><td colspan=$maxSets>$MuscleGrpName[$i]</td></tr>";
+//If we are in view mode display the following code.
+if (!$modify) {
+
+	 echo "<table border=1>";
+	 echo "<tr><td><a href=\"$current_url?modify=1\">modify records</a></td></tr>";
+	 for ($i=0; $i<$num; $i++) {
+	 		 if ($i == 0 || $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp]) {
+			 		echo "<tr><td colspan=$maxSets>$MuscleGrpName[$i]</td></tr>";
 			 } 
 			 echo "<tr><td colspan=$maxSets>$UsrExerName[$i]</td></tr>";
 			 echo "<tr><td>weight</td>";
 			 for ($m=0; $m<$UsrSetsQTY[$i]; $m++) {
-			 		 echo "<td>".$UsrWghtSet[$i][$m]."</td>";
-					 }
+			 		echo "<td>".$UsrWghtSet[$i][$m]."</td>";
+					}
 			 echo "</tr>";
-}
+	 }
 echo "</table>";
+}		 //end view mode
 
+if ($modify) {
+
+	 echo "Entered modify mode";
+	 }
 
 ?>
 
