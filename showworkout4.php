@@ -50,32 +50,80 @@ while($row = $showWorkout->fetch_array()) {
 		 								 $i++;
 } 
 
-$sameGrp = $i - 1;
 $maxSets = max($UsrSetsQTY) + 1;
 $current_url = $_SERVER['PHP_SELF'];
+
 
 //If we are in view mode display the following code.
 if (!$modify) {
 
 	 echo "<table border=1>";
-	 echo "<tr><td><a href=\"$current_url?modify=1\">modify records</a></td></tr>";
+	 echo "<tr><td><a href=\"$current_url?modify=1\">modify records</a></td></tr>\n";
+	 echo "<tr>";
+	 
+	 echo "<td><a href=\"$current_url\">View All</a></td>\n";
 	 for ($i=0; $i<$num; $i++) {
+	 		 $sameGrp = $i - 1;
 	 		 if ($i == 0 || $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp]) {
-			 		echo "<tr><td colspan=$maxSets>$MuscleGrpName[$i]</td></tr>";
+			 echo "<td><a href=\"$current_url?viewOnly=$MuscleGrpName[$i]\">$MuscleGrpName[$i]</a></td>\n";
+			 }
+	 }
+	 echo "</tr>";
+		
+	 for ($i=0; $i<$num; $i++) {
+					 	 
+			 $sameGrp = $i - 1;
+	 		 if (!$viewOnly) {
+			      if ($i == 0 || $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp]) {
+					       echo "<tr><td colspan=$maxSets>$MuscleGrpName[$i]</td></tr>\n";
+			      }
+			 } else {
+			      if ($viewOnly == $MuscleGrpName[$i] && $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp] ) {
+								 echo "<tr><td colspan=$maxSets>$MuscleGrpName[$i]</td></tr>\n";
+					  }
+			 }
+			 
+			 if (!$viewOnly) {
+			      echo "<tr><td colspan=$maxSets>$UsrExerName[$i]</td></tr>\n";
+			      echo "<tr><td>weight</td>";
+			      for ($m=0; $m<$UsrSetsQTY[$i]; $m++) {
+			      echo "<td>".$UsrWghtSet[$i][$m]."</td>\n";
+						}
+			 } elseif ($viewOnly == $MuscleGrpName[$i]) {
+			 			 echo "<tr><td colspan=$maxSets>$UsrExerName[$i]</td></tr>\n";
+			       echo "<tr><td>weight</td>";
+			       for ($m=0; $m<$UsrSetsQTY[$i]; $m++) {
+			 		        echo "<td>".$UsrWghtSet[$i][$m]."</td>\n";
+					   }
+			       echo "</tr>";
+			 } elseif ($viewOnly != $MuscleGrpName[$i]){
+			 	 				echo "";
 			 } 
-			 echo "<tr><td colspan=$maxSets>$UsrExerName[$i]</td></tr>";
-			 echo "<tr><td>weight</td>";
-			 for ($m=0; $m<$UsrSetsQTY[$i]; $m++) {
-			 		echo "<td>".$UsrWghtSet[$i][$m]."</td>";
-					}
-			 echo "</tr>";
 	 }
 echo "</table>";
 }		 //end view mode
 
+//begin modify mode.  This section displays the forms for updating our workout sets.
 if ($modify) {
 
-	 echo "Entered modify mode";
+	 echo "<form method=\"POST\" action=\"google.com\">";
+	 echo "<table border=1>";
+	 echo "<tr><td><a href=\"$current_url\">view records</a></td></tr>\n";
+	 for ($i=0; $i<$num; $i++) {
+	 		 if ($i == 0 || $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp]) {
+			 		echo "<tr><td colspan=$maxSets>$MuscleGrpName[$i]</td></tr>\n";
+			 } 
+			 echo "<tr><td colspan=$maxSets>$UsrExerName[$i]</td></tr>";
+			 echo "<tr><td>weight</td>";
+			 for ($m=0; $m<$UsrSetsQTY[$i]; $m++) {
+			 		echo "<td>";
+					echo "<input name=\"UsrWghtSetEntry$m\" type=\"text\" size=\"3\" value=\"".$UsrWghtSet[$i][$m]."\"></td>\n";
+					}
+			 echo "</tr>";
+	 }
+echo "<tr><td align=\"right\" colspan=\"$maxSets\"><input type=\"submit\" value=\"update\" name=\"UsrWghtSetUpdate\"></td></tr>";	 
+echo "</table>";
+echo "</form>";
 	 }
 
 ?>
