@@ -25,17 +25,23 @@ for ($i=0; $i<$num; $i++) {
 
 }
 
+## Update the record set to the database.
 $updateWorkout = new database_mysql();
 $updateWorkout->connect();
 
 for ($i=0; $i<$num; $i++) {
 
      for ($m=0; $m<$UsrSetsQTY[$i]; $m++) {
-		 		 $sql = "UPDATE `wolf`.`usrweighttbl` SET `UsrWghtSet1` = ".$UsrWghtSetEntry[$i][0].", `UsrWghtSet2` = '".$UsrWghtSetEntry[$i][1]."', `UsrWghtSet3` = '".$UsrWghtSetEntry[$i][2]."', `UsrWghtSet4` = '".$UsrWghtSetEntry[$i][3]."', `UsrWghtSet5` = '".$UsrWghtSetEntry[$i][4]."', `UsrWghtSet5` = '".$UsrWghtSetEntry[$i][4]."', `UsrWghtSet6` = '".$UsrWghtSetEntry[$i][5]."', `UsrWghtSet7` = '".$UsrWghtSetEntry[$i][6]."', `UsrWghtSet8` = '".$UsrWghtSetEntry[$i][7]."', `UsrWghtSet9` = '".$UsrWghtSetEntry[$i][8]."', `UsrWghtSet10` = '".$UsrWghtSetEntry[$i][9]."' WHERE `usrweighttbl`.`UsrWghtID` = ".$UsrWghtID[$i]." LIMIT 1;";
+		 		 $sql = "UPDATE `wolf`.`usrweighttbl` SET `UsrWghtSet1` = ".$UsrWghtSetEntry[$i][0].", `UsrWghtSet2` =".
+				 " '".$UsrWghtSetEntry[$i][1]."', `UsrWghtSet3` = '".$UsrWghtSetEntry[$i][2]."', `UsrWghtSet4` =".
+				 " '".$UsrWghtSetEntry[$i][3]."', `UsrWghtSet5` = '".$UsrWghtSetEntry[$i][4]."', `UsrWghtSet5` =".
+				 " '".$UsrWghtSetEntry[$i][4]."', `UsrWghtSet6` = '".$UsrWghtSetEntry[$i][5]."', `UsrWghtSet7` =".
+				 " '".$UsrWghtSetEntry[$i][6]."', `UsrWghtSet8` = '".$UsrWghtSetEntry[$i][7]."', `UsrWghtSet9` =".
+				 " '".$UsrWghtSetEntry[$i][8]."', `UsrWghtSet10` = '".$UsrWghtSetEntry[$i][9]."' WHERE `usrweighttbl`.`UsrWghtID` = ".$UsrWghtID[$i]." LIMIT 1;";
 				 $updateWorkout->query($sql);
 				 }
 }
-//
+
 ?>
 
 
