@@ -21,5 +21,14 @@ Class commonFunctions {
 					echo "</tr>";
 					}
 					
+
+  function displayMuscGrpSelect($MuscleGrpName, $current_url, $num) {
+		 for ($i=0; $i<$num; $i++) {
+          $sameGrp = $i - 1;
+					if ($i == 0 || $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp]) {
+			 		echo "<td><a href=\"$current_url?viewOnly=$MuscleGrpName[$i]\">$MuscleGrpName[$i]</a></td>\n";
+			    		 }
+     			}
+		 }
 }
 ?>
