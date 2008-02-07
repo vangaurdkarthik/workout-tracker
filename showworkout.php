@@ -62,6 +62,9 @@ $maxSets = max($UsrSetsQTY) + 1;
 
 $current_url = $_SERVER['PHP_SELF'];
 
+## Create new instance of common functions ##
+     $displayData = new commonFunctions();
+
 ## Start HTML page
 echo "<html><head>".
 		 "<title>show workout</title>".
@@ -80,16 +83,9 @@ if (!$modify) {
 /*## Display the tabs on top for view all and all muscle groups related to the workout.
   This enables users to view all workout records. */##	 
      echo "<td><a href=\"$current_url\">View All</a></td>\n";
-		 for ($i=0; $i<$num; $i++) {
-          $sameGrp = $i - 1;
-					if ($i == 0 || $MuscleGrpName[$i] != $MuscleGrpName[$sameGrp]) {
-			 		echo "<td><a href=\"$current_url?viewOnly=$MuscleGrpName[$i]\">$MuscleGrpName[$i]</a></td>\n";
-			    }
-     }
+		 $displayData->displayMuscGrpSelect($MuscleGrpName, $current_url, $num);
 		 echo "</tr>";
 		 
-     ## Create new instance of common functions ##
-     $displayData = new commonFunctions();
 
 		 /*## Display musclegroup headings.  Heading is only displayed once per muscle group */##		
      for ($i=0; $i<$num; $i++) {
